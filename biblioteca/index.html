@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronicle - Biblioteca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../inicio/style.css">
+    <link rel="stylesheet" href="../paginas.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="map-background" aria-hidden="true"></div>
+    <div class="content">
+        <header class="top-header">
+
+            <div class="logo">
+                <img src="../images/Ícone — d20.png" alt="Logo d20">
+                <span>Chronicle</span>
+            </div>
+
+            <nav class="menu" aria-label="Menu principal">
+                <a href="../inicio/index.html" class="menu-item">
+                    <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 10 8-6 8 6v9H4zM9 19v-5h6v5" /></svg></span>
+                    <span>Início</span>
+                </a>
+                <a href="../campanhas/index.html" class="menu-item">
+                    <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 6 6-2 4 2 6-2v14l-6 2-4-2-6 2zM10 4v14M14 6v14" /></svg></span>
+                    <span>Campanhas</span>
+                    <span class="menu-count">3</span>
+                </a>
+                <a href="../personagens/index.html" class="menu-item">
+                    <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" /><path d="M5 20c.7-3.3 3.1-5 7-5s6.3 1.7 7 5" /></svg></span>
+                    <span>Personagens</span>
+                </a>
+                <a href="../biblioteca/index.html" class="menu-item ativo" aria-current="page">
+                    <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5c3-1 6 0 8 2v13c-2-2-5-3-8-2zM20 5c-3-1-6 0-8 2v13c2-2 5-3 8-2z" /></svg></span>
+                    <span>Biblioteca</span>
+                </a>
+                <a href="../amigos/index.html" class="menu-item">
+                    <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" /><circle cx="17" cy="9" r="2.5" /><path d="M3 20c.7-3.3 2.7-5 6-5s5.3 1.7 6 5M14 15.5c2.8-.2 5 1.3 5.7 4.5" /></svg></span>
+                    <span>Amigos</span>
+                </a>
+                <a href="../configuracoes/index.html" class="menu-item">
+                    <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10" /><circle cx="16" cy="7" r="2" /><circle cx="8" cy="17" r="2" /></svg></span>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+
+            <div class="header-actions">
+
+                <label class="search">
+                    <span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5" /></svg></span>
+                    <input
+                        type="search"
+                        placeholder="Buscar no Chronicle..."
+                        aria-label="Buscar no Chronicle"
+                    >
+                    <kbd>⌘ K</kbd>
+                </label>
+
+                <!-- PERFIL -->
+                <div class="perfil">
+                    <img
+                        class="perfil-logo"
+                        src="../images/perfil.jpeg"
+                        alt="Foto do usuário"
+                    >
+
+                    <div class="perfil-info">
+                        <p class="nomeperfil">Daniel</p>
+                        <p class="funcao-perfil">Administrador</p>
+                    </div>
+                </div>
+
+                <!-- NOTIFICAÇÕES (controladas pelo script.js) -->
+                <div class="notification-container">
+
+                    <button
+                        class="notification"
+                        type="button"
+                        aria-label="Notificações"
+                        aria-expanded="false"
+                    >
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
+                        </svg>
+
+                        <span class="notification-count" hidden>0</span>
+
+                    </button>
+
+                    <div class="notification-panel" hidden>
+
+                        <div class="notification-header">
+
+                            <div>
+                                <h3>Notificações</h3>
+                                <span class="notification-subtitle">
+                                    Suas últimas atualizações
+                                </span>
+                            </div>
+
+                            <button class="mark-all-read" type="button">
+                                Marcar todas como lidas
+                            </button>
+
+                        </div>
+
+                        <div class="notification-list"></div>
+
+                        <div class="notification-footer">
+                            Chronicle · Central de notificações
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+        <main>
+<section class="page-head"><div><h1>Biblioteca</h1><p>Regras, notas e inspirações num lugar só.</p></div><label class="search page-search"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5" /></svg></span><input type="search" placeholder="Buscar na biblioteca..." aria-label="Buscar na biblioteca..."></label></section><div class="library-filters">
+                <div class="tabs" role="group" aria-label="Filtrar">
+                    <button class="tab" type="button" data-filter="todos" aria-pressed="true">Tudo</button>
+                    <button class="tab add-filter" type="button" aria-expanded="false">+ Adicionar filtro</button>
+                </div>
+                <label class="campaign-bar" hidden>Campanha<select class="campaign-filter" aria-label="Filtrar por campanha"></select></label>
+                <form class="add-filter-form" hidden>
+                    <label>Nome do filtro<input type="text" name="filter-name" maxlength="24" required placeholder="Ex.: Regras"></label>
+                    <button class="btn btn-primary" type="submit">Adicionar</button>
+                </form>
+            </div>
+            <section class="entries">
+                <a href="#" class="entry panel" data-cat="regras" data-campaign="eldoria">
+                    <span class="kind regras">Regra</span>
+                    <span><strong>Esperança e Medo</strong><small>Como funcionam os dados de dualidade em Daggerheart.</small></span>
+                    <em>Daggerheart</em>
+                </a>
+                <a href="#" class="entry panel" data-cat="regras" data-campaign="andromeda">
+                    <span class="kind regras">Regra</span>
+                    <span><strong>Combate de naves</strong><small>Turnos, posições da tripulação e ações de cada fase.</small></span>
+                    <em>Starfinder</em>
+                </a>
+                <a href="#" class="entry panel" data-cat="notas" data-campaign="eldoria">
+                    <span class="kind notas">Nota</span>
+                    <span><strong>O vulto voltou a aparecer</strong><small>Ecos de Eldoria · há 3 dias · só você vê</small></span>
+                    <em>Anotação do mestre</em>
+                </a>
+                <a href="#" class="entry panel" data-cat="notas" data-campaign="ultimo-sinal">
+                    <span class="kind notas">Nota</span>
+                    <span><strong>Pistas do sinal na estação</strong><small>O último sinal · há 1 semana · só você vê</small></span>
+                    <em>Anotação do mestre</em>
+                </a>
+                <a href="#" class="entry panel" data-cat="inspiracoes" data-campaign="eldoria">
+                    <span class="kind inspiracoes">Inspiração</span>
+                    <span><strong>Ruínas sob a névoa</strong><small>Referências visuais e clima para Eldoria.</small></span>
+                    <em>Moodboard</em>
+                </a>
+                <a href="#" class="entry panel" data-cat="inspiracoes" data-campaign="ultimo-sinal">
+                    <span class="kind inspiracoes">Inspiração</span>
+                    <span><strong>Ondas de rádio</strong><small>Trilha sonora para as cenas de O último sinal.</small></span>
+                    <em>Playlist</em>
+                </a>
+            </section>
+            <p class="empty" hidden>Nada por aqui com esse filtro.</p>
+        </main>
+    </div>
+    <script src="../inicio/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

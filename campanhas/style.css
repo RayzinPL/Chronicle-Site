@@ -1,0 +1,13 @@
+.camp { display: flex; flex-direction: column; overflow: hidden; }
+.camp > img { width: 100%; height: 170px; object-fit: cover; }
+.camp-body { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 22px 24px 24px; }
+.camp-body p { margin: 0; }
+.camp-body .btn { align-self: flex-start; margin-top: auto; }
+.camp-body .muted { margin-bottom: 14px; font-size: 14px; }
+.camp-top { display: flex; align-items: center; justify-content: space-between; }
+.camp h2 { margin: 6px 0 0; font-family: var(--heading-font); font-size: 26px; }
+.role { color: var(--accent-soft); font-size: 13px; font-weight: 700; }
+.status { padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.status.ativa { background: rgb(126 214 165 / 14%); color: #7ED6A5; }
+.status.pausada { background: rgb(242 196 174 / 14%); color: var(--peach); }
+.status.encerrada { background: rgb(117 109 133 / 25%); color: #B7AFC8; }

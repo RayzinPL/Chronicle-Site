@@ -1,0 +1,20 @@
+/* Componentes compartilhados pelas páginas internas (campanhas, amigos, personagens, biblioteca, configurações) */
+[hidden] { display: none !important; }
+
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+.page-head h1 { margin: 0; font-family: var(--heading-font); font-size: 40px; font-weight: 800; letter-spacing: -0.03em; }
+.page-head p { margin: 10px 0 0; color: #CFC6E2; font-size: 18px; }
+.page-search { width: min(320px, 100%); }
+
+.panel { border: 1px solid rgb(184 168 236 / 13%); border-radius: var(--radius); background: linear-gradient(135deg, rgb(29 22 45 / 76%), rgb(11 12 20 / 82%)); box-shadow: 0 28px 70px rgb(0 0 0 / 34%), inset 0 1px 0 rgb(255 255 255 / 7%); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 24px; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab { min-height: 40px; padding: 0 18px; border: 1px solid #4A4062; border-radius: 999px; background: transparent; color: var(--muted); font: 600 14px Inter, Arial, sans-serif; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+.tab:hover { background: #262037; color: var(--text); }
+.tab[aria-pressed="true"] { border-color: rgb(184 168 236 / 40%); background: linear-gradient(110deg, rgb(184 168 236 / 22%), rgb(242 196 174 / 10%)); color: #fff; }
+
+.empty { margin: 24px 0; color: var(--muted); text-align: center; }
+
+@media (max-width: 1000px) { .page-head h1 { font-size: 34px; } }

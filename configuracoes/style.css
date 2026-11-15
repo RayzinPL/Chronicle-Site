@@ -1,0 +1,20 @@
+.settings { display: grid; max-width: 760px; gap: 24px; }
+.settings .panel { display: flex; flex-direction: column; gap: 16px; padding: 28px; }
+.settings h2 { margin: 0 0 4px; font-family: var(--heading-font); font-size: 24px; }
+.field { display: flex; flex-direction: column; gap: 8px; color: #CFC7DE; font-size: 14px; font-weight: 600; }
+.field input { height: 46px; padding: 0 16px; border: 1px solid var(--line); border-radius: 14px; background: rgb(8 8 14 / 50%); color: var(--text); font: inherit; font-weight: 400; }
+.field input:focus { border-color: var(--accent); outline: 0; box-shadow: 0 0 0 3px rgb(184 168 236 / 12%); }
+.setting { display: flex; align-items: center; justify-content: space-between; gap: 20px; cursor: pointer; }
+.setting strong { display: block; font-size: 16px; }
+.setting small { color: #CFC7DE; font-size: 13px; }
+.switch { position: relative; flex: none; width: 46px; height: 26px; }
+.switch input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.switch i { position: absolute; inset: 0; border-radius: 999px; background: #3A3350; transition: background 0.2s ease; pointer-events: none; }
+.switch i::after { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #F4EFFA; content: ""; transition: transform 0.2s ease; }
+.switch input:checked + i { background: var(--gradient-main); }
+.switch input:checked + i::after { transform: translateX(20px); }
+.switch input:focus-visible + i { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+.settings-actions { display: flex; align-items: center; gap: 16px; }
+.saved { color: #7ED6A5; font-size: 14px; font-weight: 600; }
+.sem-movimento .content { animation: none; }
+.sem-movimento * { transition: none !important; }

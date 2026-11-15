@@ -1,0 +1,8 @@
+.char { display: flex; flex-direction: column; gap: 4px; padding: 26px; }
+.char p { margin: 0; }
+.char h2 { margin: 14px 0 0; font-family: var(--heading-font); font-size: 24px; }
+.char-initials { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--gradient-main); color: var(--on-accent); font-family: var(--heading-font); font-weight: 800; }
+.pv { margin: 18px 0 14px; font-size: 13px; color: #CFC7DE; }
+.bar { height: 8px; margin-top: 8px; overflow: hidden; border-radius: 999px; background: rgb(255 255 255 / 8%); }
+.bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #9FD3CC, #7ED6A5); }
+.char .link { margin-top: auto; }

@@ -1,0 +1,10 @@
+.friend-table { margin: 0; padding: 12px; list-style: none; }
+.friend-row { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto auto; align-items: center; gap: 16px; padding: 14px 16px; border-radius: 18px; transition: background 0.25s ease; }
+.friend-row + .friend-row { margin-top: 2px; }
+.friend-row:hover { background: var(--surface-hover); }
+.friend-row .friend-avatar { width: 44px; height: 44px; font-size: 13px; }
+.friend-row strong { display: block; font-size: 16px; }
+.friend-row small { color: #CFC7DE; font-size: 13px; }
+.friend-row .btn { min-height: 38px; padding: 0 18px; font-size: 13px; }
+.friend-row .friend-status { width: 9px; height: 9px; }
+@media (max-width: 620px) { .friend-row { grid-template-columns: 44px minmax(0, 1fr) auto; } .friend-row .btn { display: none; } }

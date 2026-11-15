@@ -1,0 +1,62 @@
+# Passos 1 a 3 — Contexto, minimundo e requisitos
+
+## 1. Introdução e contexto
+
+O Chronicle é uma aplicação web para gerenciamento de RPG de mesa, feita por fãs de RPG para fãs de RPG. O projeto nasceu da vontade de resolver um problema que todo mundo que joga conhece: fichas de papel que se perdem, anotações soltas e planilhas que ninguém consegue acompanhar. O sistema centraliza tudo em um só lugar, permitindo que jogadores criem e mantenham suas fichas de personagem, acompanhem atributos, inventário e evolução, enquanto os mestres organizam campanhas, sessões, encontros, NPCs e demais recursos da mesa presenciais ou virtuais.
+
+Para isso, utilizamos HTML, CSS e JavaScript na construção da interface, Python no desenvolvimento da lógica e regras do sistema, e um banco de dados em SQL para armazenar e relacionar as informações de jogadores, mestres, campanhas, personagens e sessões.
+
+O nosso foco é o RPG de mesa, e o nível de complexidade do sistema é intermediário, atendendo tanto a grupos veteranos, que buscam mais organização e praticidade durante as sessões, quanto a iniciantes, que estão começando a explorar o hobby e precisam de apoio para entender regras e acompanhar suas campanhas. Como referência, utilizamos livros de regras de diferentes sistemas e fontes variadas, para tornar o projeto flexível e rico em informações.
+
+## Escopo 
+
+| O banco faz | O banco não faz |
+| --- | --- |
+| Armazena os usuários (jogadores e mestres) com login e senha criptografada (hash). | Executa a lógica do jogo: cálculo de modificadores, validação de regras e rolagens ficam a cargo do Python. |
+| Armazena as campanhas (nome, descrição, sistema de RPG e status) e o vínculo entre campanha, mestre e jogadores participantes. | Gera a interface: a exibição de fichas e telas é feita por HTML, CSS e JavaScript. |
+| Registra as sessões (data e resumo) | Substitui o mestre: não cria campanhas, histórias ou decisões de forma automática. |
+| Garante a integridade dos dados com chaves primárias e estrangeiras, restrições de valores e backup com possibilidade de restauração. | Atua como sistema de pagamentos ou loja, sem transações financeiras. |
+| | |
+
+Usuários. Quem usa o sistema e o que cada um faz com os dados. Não criem tabela de usuário se nenhum requisito pedir cadastro, senha ou sessão.
+
+| Usuário | O que faz |
+| --- | --- |
+| Jogador | Informa o seu nome e e-mail para se identificar, visualizar campanhas que esta jogando, vizualizar e editar fichas, criar e editar anotações pessoais de player |
+| Mestre | cadastra nome das campanhas, cadastra nome sistema de rpg, cadastra descrição das campanhas, cadastra status da campanha, cadastra jogadores da campanha, cadastra data e horario, criar/editar e vizualizar fichas, criar e editar anotações do mestre  |
+| | |
+
+## 2. Minimundo
+
+Preciso criar um sistema web chamado Chronicle, para o gerenciamento de RPG de mesa, presencial ou virtual, voltado para jogadores e mestres. O objetivo principal é permitir que o usuário se cadastre informando nome e e-mail, com login e senha armazenada de forma criptografada, e atue como jogador, como mestre ou como ambos, já que um mesmo usuário pode jogar em uma campanha e mestrar em outra.
+
+O sistema deve permitir que o mestre cadastre campanhas, informando nome, descrição, sistema de RPG utilizado e status (ativa, pausada ou encerrada), além de cadastrar os jogadores participantes de cada campanha. Cada campanha pode ter várias sessões, e cada sessão deve registrar data, horário e resumo. O mestre também deve poder criar, editar e visualizar fichas, e criar e editar suas anotações de mestre.
+
+Cada jogador deve poder visualizar as campanhas em que está jogando, visualizar e editar as suas fichas de personagem, e criar e editar suas anotações pessoais de player. As fichas pertencem a uma campanha e seguem o sistema de RPG escolhido por ela.
+
+O banco de dados deve manter a integridade das informações por meio de chaves primárias e estrangeiras e restrições de valores, além de permitir backup com possibilidade de restauração. A lógica do jogo, como o cálculo de modificadores, a validação de regras e as rolagens, fica a cargo do Python, e a exibição das telas, a cargo de HTML, CSS e JavaScript.
+
+## 3. Requisitos e regras de negócio
+
+| Código | Texto do requisito | Tipo |
+| --- | --- | --- |
+| RF01 | Cadastrar campanha: o mestre deve poder cadastrar campanhas, informando nome, descrição, sistema de RPG utilizado e status (ativa, pausada ou encerrada). | funcional |
+| RF02 | Cadastrar jogadores na campanha: o mestre deve poder vincular os jogadores participantes a cada campanha. | funcional |
+| RF03 | Cadastrar sessão: o mestre deve poder cadastrar as sessões de uma campanha, informando data, horário e resumo. | funcional |
+| RF04 | Gerenciar fichas: o mestre deve poder criar, editar e visualizar fichas de personagem. | funcional |
+| RF05 | Gerenciar fichas como jogador: o jogador deve poder visualizar e editar as suas fichas de personagem. | funcional |
+| RF06 | Visualizar campanhas: o jogador deve poder visualizar as campanhas em que está jogando. | funcional |
+| RF07 | Gerenciar anotações do mestre: o mestre deve poder criar e editar as suas anotações. | funcional |
+| RF08 | Gerenciar anotações do jogador: o jogador deve poder criar e editar as suas anotações pessoais de player. | funcional |
+| RN01 | Cadastro de usuário: o sistema deve solicitar o nome e o e-mail do usuário para identificá-lo, e a senha deve ser armazenada de forma criptografada (hash). | regra de negócio |
+| RN02 | Papéis do usuário: um mesmo usuário pode atuar como jogador em uma campanha e como mestre em outra. | regra de negócio |
+| RN03 | Vínculo da campanha: toda campanha deve ter um mestre responsável, e os jogadores participantes só visualizam as campanhas às quais estão vinculados. | regra de negócio |
+| RN04 | Status da campanha: o status de uma campanha deve ser obrigatoriamente ativa, pausada ou encerrada. | regra de negócio |
+| RN05 | Vínculo da ficha: toda ficha de personagem deve pertencer a uma campanha e seguir o sistema de RPG escolhido por ela. | regra de negócio |
+| RN06 | Vínculo da sessão: toda sessão deve pertencer a uma campanha e registrar data e horário. | regra de negócio |
+| RN07 | Privacidade das anotações: as anotações do mestre e as anotações pessoais do jogador devem ser visíveis apenas para quem as criou. | regra de negócio |
+| RN08 | Integridade dos dados: o banco deve garantir os relacionamentos por meio de chaves primárias e estrangeiras e validar campos obrigatórios e valores permitidos. | regra de negócio |
+| RNF01 | Tecnologias: a interface deve ser construída com HTML, CSS e JavaScript, a lógica e as regras do sistema com Python, e os dados armazenados em um banco de dados SQL. | não funcional |
+| RNF02 | Separação de responsabilidades: o cálculo de modificadores, a validação de regras e as rolagens ficam a cargo do Python, e a exibição das telas, a cargo de HTML, CSS e JavaScript. | não funcional |
+| RNF03 | Segurança: as senhas não devem ser armazenadas em texto puro. | não funcional |
+| RNF04 | Backup e restauração: o banco de dados deve permitir backup com possibilidade de restauração dos dados. | não funcional |
