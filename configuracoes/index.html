@@ -124,29 +124,105 @@
 
         </header>
         <main>
-<section class="page-head"><div><h1>Configurações</h1><p>Ajuste o Chronicle ao jeito da sua mesa.</p></div></section>
-            <form class="settings" id="form-config">
-                <section class="panel">
-                    <h2>Perfil</h2>
-                    <label class="field">Nome<input type="text" name="nome" value="Daniel" autocomplete="name"></label>
-                    <label class="field">E-mail<input type="email" name="email" placeholder="voce@email.com" autocomplete="email"></label>
+            <section class="page-head">
+                <div>
+                    <p class="eyebrow">Identidade da mesa</p>
+                    <h1>Perfil e conta</h1>
+                    <p>Personalize como você aparece no Chronicle e ajuste sua experiência.</p>
+                </div>
+            </section>
+
+            <div class="account-layout">
+                <section class="panel profile-card">
+                    <div class="profile-card-top">
+                        <div class="avatar-wrap">
+                            <img id="profile-preview" class="profile-avatar" src="../images/perfil.jpeg" alt="Prévia da foto de perfil">
+                            <label class="avatar-upload" for="avatar-input" title="Escolher foto de perfil">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3v12H4z" /><circle cx="12" cy="13" r="3.5" /></svg>
+                                <span class="sr-only">Escolher foto de perfil</span>
+                            </label>
+                            <input id="avatar-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+                        </div>
+                        <div>
+                            <p class="eyebrow">Seu perfil</p>
+                            <h2 id="profile-card-name">Daniel</h2>
+                            <p id="profile-card-username" class="muted">@daniel</p>
+                        </div>
+                    </div>
+                    <div class="profile-stats" aria-label="Resumo da atividade">
+                        <div><strong id="campaign-stat">0</strong><span>campanhas</span></div>
+                        <div><strong id="friend-stat">0</strong><span>amigos</span></div>
+                        <div><strong id="account-age-stat">—</strong><span>no Chronicle</span></div>
+                    </div>
+                    <p class="profile-note">A foto fica salva apenas neste navegador enquanto o Chronicle não possui autenticação.</p>
                 </section>
-                <section class="panel">
-                    <h2>Notificações</h2>
-                    <label class="setting"><span><strong>Lembrete de sessão</strong><small>Aviso um dia antes de cada sessão.</small></span><span class="switch"><input type="checkbox" name="lembrete" checked><i></i></span></label>
-                    <label class="setting"><span><strong>Atividade de amigos</strong><small>Quando alguém entrar numa mesa sua.</small></span><span class="switch"><input type="checkbox" name="amigos" checked><i></i></span></label>
-                </section>
-                <section class="panel">
-                    <h2>Aparência</h2>
-                    <label class="setting"><span><strong>Reduzir animações</strong><small>Desativa os movimentos de entrada e de hover.</small></span><span class="switch"><input type="checkbox" name="movimento"><i></i></span></label>
-                </section>
-                <div class="settings-actions"><button class="btn btn-primary" type="submit">Salvar alterações</button><span class="saved" role="status"></span></div>
-            </form>
+
+                <form class="settings account-settings" id="form-config">
+                    <section class="panel settings-section">
+                        <div class="section-heading">
+                            <div><p class="eyebrow">Identidade</p><h2>Informações do perfil</h2></div>
+                            <span class="section-icon" aria-hidden="true">✦</span>
+                        </div>
+                        <div class="field-grid">
+                            <label class="field">Nome de exibição<input type="text" name="displayName" maxlength="60" autocomplete="name" required></label>
+                            <label class="field">Nome de usuário<input type="text" name="username" maxlength="30" pattern="[A-Za-z0-9._\-]{3,30}" autocomplete="nickname" required><small class="field-hint">Use letras, números, ponto, hífen ou sublinhado.</small></label>
+                        </div>
+                        <label class="field">Biografia<textarea name="bio" maxlength="240" rows="4" placeholder="Conte um pouco sobre seu estilo de jogo..."></textarea><span class="counter" id="bio-counter">0/240</span></label>
+                        <p class="field-hint">Conta criada em <strong id="created-at">—</strong></p>
+                    </section>
+
+                    <section class="panel settings-section">
+                        <div class="section-heading">
+                            <div><p class="eyebrow">Experiência</p><h2>Preferências de interface</h2></div>
+                            <span class="section-icon" aria-hidden="true">◌</span>
+                        </div>
+                        <label class="setting"><span><strong>Tema atual</strong><small>O tema escuro do Chronicle é mantido nesta versão.</small></span><span class="theme-badge">Escuro</span></label>
+                        <label class="setting"><span><strong>Reduzir animações</strong><small>Desativa movimentos de entrada e de hover.</small></span><span class="switch"><input type="checkbox" name="motionReduced"><i></i></span></label>
+                    </section>
+
+                    <section class="panel settings-section">
+                        <div class="section-heading">
+                            <div><p class="eyebrow">Central de avisos</p><h2>Notificações</h2></div>
+                            <span class="section-icon" aria-hidden="true">◒</span>
+                        </div>
+                        <p class="section-description">Escolha quais atualizações podem aparecer na central de notificações deste navegador.</p>
+                        <label class="setting"><span><strong>Convites para campanhas</strong><small>Quando alguém convidar você para uma mesa.</small></span><span class="switch"><input type="checkbox" name="notifications.campaignInvites"><i></i></span></label>
+                        <label class="setting"><span><strong>Solicitações de amizade</strong><small>Novas solicitações e respostas.</small></span><span class="switch"><input type="checkbox" name="notifications.friendRequests"><i></i></span></label>
+                        <label class="setting"><span><strong>Atualizações de campanhas</strong><small>Alterações importantes nas suas campanhas.</small></span><span class="switch"><input type="checkbox" name="notifications.campaignUpdates"><i></i></span></label>
+                        <label class="setting"><span><strong>Avisos sobre sessões</strong><small>Lembretes no dia anterior e no dia da sessão.</small></span><span class="switch"><input type="checkbox" name="notifications.sessionAlerts"><i></i></span></label>
+                        <label class="setting"><span><strong>Outras notificações</strong><small>Novidades e comunicados do Chronicle.</small></span><span class="switch"><input type="checkbox" name="notifications.other"><i></i></span></label>
+                    </section>
+
+                    <section class="panel settings-section">
+                        <div class="section-heading">
+                            <div><p class="eyebrow">Controle do perfil</p><h2>Privacidade e interação</h2></div>
+                            <span class="section-icon" aria-hidden="true">◈</span>
+                        </div>
+                        <label class="field">Visibilidade do perfil<select name="privacy.profileVisibility"><option value="public">Público para usuários do Chronicle</option><option value="friends">Apenas amigos</option><option value="private">Privado</option></select></label>
+                        <label class="setting"><span><strong>Permitir solicitações de amizade</strong><small>Controla quem poderá iniciar uma solicitação.</small></span><span class="switch"><input type="checkbox" name="privacy.allowFriendRequests"><i></i></span></label>
+                        <label class="setting"><span><strong>Mostrar atividade no perfil</strong><small>Exibe campanhas e atividade recente publicamente.</small></span><span class="switch"><input type="checkbox" name="privacy.showActivity"><i></i></span></label>
+                        <p class="privacy-note">Estas opções são um protótipo local e não substituem controles de segurança ou autenticação.</p>
+                    </section>
+
+                    <section class="panel future-auth">
+                        <div>
+                            <p class="eyebrow">Próxima etapa</p>
+                            <h2>Segurança da conta</h2>
+                            <p>Login, recuperação de senha e sessões serão conectados ao backend Python/SQL. Nenhuma senha é armazenada neste protótipo.</p>
+                        </div>
+                        <span class="coming-soon">Em breve</span>
+                    </section>
+
+                    <div class="settings-actions"><button class="btn btn-primary" type="submit">Salvar alterações</button><span class="saved" role="status" aria-live="polite"></span></div>
+                </form>
+            </div>
         </main>
     </div>
     <script src="../inicio/script.js"></script>
     <script src="../campanhas/data.js"></script>
+    <script src="../amigos/data.js"></script>
     <script src="../sync.js"></script>
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

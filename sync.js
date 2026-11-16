@@ -13,7 +13,13 @@
     const DAY = 86400000;
     const dayStart = date => new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
     const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch { return fallback; } };
-    const remindersOn = () => read("chronicle_config", {}).lembrete !== false;
+    const remindersOn = () => {
+        const settings = read("chronicle_account_settings", null);
+        if (settings && settings.notifications && typeof settings.notifications.sessionAlerts === "boolean") {
+            return settings.notifications.sessionAlerts;
+        }
+        return read("chronicle_config", {}).lembrete !== false;
+    };
     const clock = date => `${date.getHours()}h${date.getMinutes() ? String(date.getMinutes()).padStart(2, "0") : ""}`;
 
     async function sync() {
@@ -58,4 +64,31 @@
     setInterval(sync, 60000);
     window.addEventListener("storage", sync);
     window.addEventListener("chronicle:campaigns-changed", sync);
+})();
+
+/* Perfil compartilhado: mantém o cabeçalho consistente entre as páginas. */
+(function () {
+    "use strict";
+
+    function loadProfile() {
+        let profile = {};
+        try { profile = JSON.parse(localStorage.getItem("chronicle_profile")) || {}; } catch (error) {
+            console.warn("[Chronicle] Não foi possível atualizar o perfil do cabeçalho.", error);
+        }
+        const image = document.querySelector(".perfil-logo");
+        const name = document.querySelector(".nomeperfil");
+        const welcomeName = document.querySelector(".hello h1 em");
+        if (image) {
+            image.src = profile.avatar || "../images/perfil.jpeg";
+            image.alt = profile.displayName ? `Foto de ${profile.displayName}` : "Foto do usuário";
+        }
+        if (name && profile.displayName) name.textContent = profile.displayName;
+        if (welcomeName && profile.displayName) welcomeName.textContent = profile.displayName;
+    }
+
+    loadProfile();
+    window.addEventListener("chronicle:profile-changed", loadProfile);
+    window.addEventListener("storage", event => {
+        if (event.key === "chronicle_profile") loadProfile();
+    });
 })();
