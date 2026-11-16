@@ -29,7 +29,7 @@
                 <a href="../campanhas/index.html" class="menu-item">
                     <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 6 6-2 4 2 6-2v14l-6 2-4-2-6 2zM10 4v14M14 6v14" /></svg></span>
                     <span>Campanhas</span>
-                    <span class="menu-count">3</span>
+                    <span class="menu-count">0</span>
                 </a>
                 <a href="../personagens/index.html" class="menu-item">
                     <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" /><path d="M5 20c.7-3.3 3.1-5 7-5s6.3 1.7 7 5" /></svg></span>
@@ -124,43 +124,86 @@
 
         </header>
         <main>
-<section class="page-head"><div><h1>Seus amigos</h1><p>Convide para a mesa quem já joga com você.</p></div><label class="search page-search"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5" /></svg></span><input type="search" placeholder="Buscar amigo..." aria-label="Buscar amigo..."></label></section><div class="tabs" role="group" aria-label="Filtrar"><button class="tab" type="button" data-filter="todos" aria-pressed="true">Todos</button><button class="tab" type="button" data-filter="online" aria-pressed="false">Online</button><button class="tab" type="button" data-filter="jogando" aria-pressed="false">Em sessão</button><button class="tab" type="button" data-filter="offline" aria-pressed="false">Offline</button></div>
-            <ul class="panel friend-table">
-                <li class="friend-row" data-cat="online">
-                    <span class="friend-avatar avatar-peach">LM</span>
-                    <span><strong>Laura Martins</strong><small class="">Online agora</small></span>
-                    <span class="friend-status online" aria-hidden="true"></span>
-                    <a href="#" class="btn btn-outline">Convidar para a mesa</a>
-                </li>
-                <li class="friend-row" data-cat="jogando">
-                    <span class="friend-avatar avatar-teal">RC</span>
-                    <span><strong>Rafael Costa</strong><small class="friend-playing">Jogando Órbita de Andrômeda</small></span>
-                    <span class="friend-status playing" aria-hidden="true"></span>
-                    <a href="#" class="btn btn-outline">Convidar para a mesa</a>
-                </li>
-                <li class="friend-row" data-cat="offline">
-                    <span class="friend-avatar avatar-lilac">MS</span>
-                    <span><strong>Marina Souza</strong><small class="">Visto há 20 min</small></span>
-                    <span class="friend-status offline" aria-hidden="true"></span>
-                    <a href="#" class="btn btn-outline">Convidar para a mesa</a>
-                </li>
-                <li class="friend-row" data-cat="online">
-                    <span class="friend-avatar avatar-teal">BL</span>
-                    <span><strong>Bruno Lima</strong><small class="">Online agora</small></span>
-                    <span class="friend-status online" aria-hidden="true"></span>
-                    <a href="#" class="btn btn-outline">Convidar para a mesa</a>
-                </li>
-                <li class="friend-row" data-cat="offline">
-                    <span class="friend-avatar avatar-peach">CR</span>
-                    <span><strong>Camila Rocha</strong><small class="">Visto ontem</small></span>
-                    <span class="friend-status offline" aria-hidden="true"></span>
-                    <a href="#" class="btn btn-outline">Convidar para a mesa</a>
-                </li>
-            </ul>
-            <p class="empty" hidden>Nada por aqui com esse filtro.</p>
+<section class="page-head"><div><h1>Seus amigos</h1><p>Convide para a mesa quem já joga com você.</p></div><div class="page-actions"><label class="search page-search"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5" /></svg></span><input type="search" placeholder="Buscar amigo..." aria-label="Buscar amigo..."></label><button type="button" class="btn btn-primary" id="add-friend-btn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> Adicionar amigo</button></div></section><div class="tabs" role="group" aria-label="Filtrar"><button class="tab" type="button" data-filter="todos" aria-pressed="true">Todos</button><button class="tab" type="button" data-filter="online" aria-pressed="false">Online</button><button class="tab" type="button" data-filter="jogando" aria-pressed="false">Em sessão</button><button class="tab" type="button" data-filter="offline" aria-pressed="false">Offline</button></div>
+            <ul class="panel friend-table" id="friend-list" hidden></ul>
+            <div class="panel friends-empty-panel" id="friends-empty" hidden>
+                <p>Toda boa história começa com boas amizades! Convide sua mesa! 💫</p>
+                <button type="button" class="btn btn-primary" data-open-add>Adicionar amigo</button>
+            </div>
+            <p class="empty" role="status" hidden>Nada por aqui com esse filtro.</p>
         </main>
     </div>
+    <!-- Template da linha: mesma estrutura/classes das linhas originais -->
+    <template id="friend-row-template">
+        <li class="friend-row">
+            <span class="friend-avatar"></span>
+            <span><strong></strong><small></small></span>
+            <span class="friend-status" aria-hidden="true"></span>
+            <a href="#" class="btn btn-outline">Convidar para a mesa</a>
+            <button type="button" class="friend-remove" data-action="remove" aria-label="Remover amigo" title="Remover amigo">&times;</button>
+        </li>
+    </template>
+
+    <!-- Modal: adicionar amigo -->
+    <dialog class="modal" id="friend-modal" aria-labelledby="friend-modal-title">
+        <form class="modal-box" id="friend-form" novalidate>
+            <header class="modal-head">
+                <div>
+                    <h2 id="friend-modal-title">Adicionar amigo</h2>
+                    <p class="modal-sub">Convide para a sua lista quem já joga com você.</p>
+                </div>
+                <button type="button" class="modal-close" data-modal-close aria-label="Fechar">&times;</button>
+            </header>
+
+            <div class="modal-body">
+                <p class="form-alert" id="form-alert" role="alert" hidden></p>
+
+                <div class="field">
+                    <label for="f-name">Nome <span class="req" aria-hidden="true">*</span></label>
+                    <input id="f-name" name="name" type="text" autofocus maxlength="60" autocomplete="off" placeholder="Ex.: Laura Martins" aria-describedby="e-name" required>
+                    <small class="field-error" id="e-name" hidden></small>
+                </div>
+
+                <div class="field">
+                    <label for="f-email">E-mail <span class="optional">(opcional)</span></label>
+                    <input id="f-email" name="email" type="email" maxlength="120" autocomplete="off" placeholder="amigo@email.com" aria-describedby="e-email">
+                    <small class="field-error" id="e-email" hidden></small>
+                </div>
+            </div>
+
+            <footer class="modal-actions">
+                <button type="button" class="btn btn-outline" data-modal-close>Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="form-submit">Adicionar</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <!-- Modal: confirmar remoção -->
+    <dialog class="modal modal-small" id="confirm-modal" role="alertdialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+        <div class="modal-box">
+            <header class="modal-head">
+                <h2 id="confirm-title">Remover amigo?</h2>
+                <button type="button" class="modal-close" data-modal-close aria-label="Fechar">&times;</button>
+            </header>
+            <div class="modal-body">
+                <p class="modal-text" id="confirm-text"></p>
+                <p class="form-alert" id="confirm-alert" role="alert" hidden></p>
+            </div>
+            <footer class="modal-actions">
+                <button type="button" class="btn btn-outline" data-modal-close autofocus>Cancelar</button>
+                <button type="button" class="btn btn-danger btn-danger-solid" id="confirm-remove">Remover</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <!-- Avisos rápidos (toasts) -->
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+
     <script src="../inicio/script.js"></script>
+    <script src="../campanhas/data.js"></script>
+    <script src="../sync.js"></script>
+    <script src="data.js"></script>
+    <script src="view.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

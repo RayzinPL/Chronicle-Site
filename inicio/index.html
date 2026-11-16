@@ -32,7 +32,7 @@
                 <a href="../campanhas/index.html" class="menu-item">
                     <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 6 6-2 4 2 6-2v14l-6 2-4-2-6 2zM10 4v14M14 6v14" /></svg></span>
                     <span>Campanhas</span>
-                    <span class="menu-count">3</span>
+                    <span class="menu-count">0</span>
                 </a>
                 <a href="../personagens/index.html" class="menu-item">
                     <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" /><path d="M5 20c.7-3.3 3.1-5 7-5s6.3 1.7 7 5" /></svg></span>
@@ -135,70 +135,37 @@
                     <h1>Seja Bem vindo, <em>Daniel</em>!</h1>
                     <p>Pronto para sua próxima aventura?</p>
                 </div>
-                <a href="#" class="btn btn-primary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> Nova campanha</a>
             </section>
 
-            <!-- CAMPANHAS -->
+            <!-- CAMPANHAS (preenchido pelo script.js a partir de ChronicleData) -->
             <section class="campaigns" aria-label="Suas campanhas">
 
-                <article class="featured">
-                    <img src="../images/campanha-eldoria.svg" alt="">
+                <article class="featured" id="featured-campaign" hidden>
+                    <img id="featured-cover" src="" alt="" hidden>
                     <div class="featured-shade"></div>
                     <div class="featured-content">
                         <div class="session-meta">
-                            <span class="chip">Próxima sessão · Sáb, 21 nov · 19h30</span>
-                            <span class="session-countdown" data-session-date="2026-11-21T19:30:00-03:00">Faltam 7 dias</span>
+                            <span class="chip" id="featured-session"></span>
+                            <span class="session-countdown" id="featured-countdown"></span>
                         </div>
-                        <h2>Ecos de Eldoria</h2>
-                        <p class="featured-meta">
-                            <span class="avatars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-                            Daniel · Mestre · 4 jogadores · Atualizada há 2 horas
-                        </p>
+                        <h2 id="featured-title"></h2>
+                        <p class="featured-meta" id="featured-meta"></p>
                         <div class="featured-actions">
-                            <a href="#" class="btn btn-primary">Se preparar para a sessão</a>
-                            <a href="#" class="btn btn-outline btn-on-image">Configurar Campanha</a>
+                            <a href="../campanhas/index.html" class="btn btn-primary" id="featured-open">Abrir campanha</a>
                         </div>
+                    </div>
+                </article>
+
+                <article class="featured featured-empty" id="featured-empty" hidden>
+                    <div class="featured-content">
+                        <h2>Você ainda não tem campanhas</h2>
+                        <p>Crie sua primeira campanha para começar.</p>
                     </div>
                 </article>
 
                 <div class="campaign-list">
                     <h2>Cronograma de sessões</h2>
-
-                    <a href="#" class="schedule-row">
-                        <time datetime="2026-11-21">
-                            <strong>21</strong>
-                            <span>nov</span>
-                        </time>
-                        <span>
-                            <strong>Ecos de Eldoria</strong>
-                            <small>Sáb · 19h30 · 4 jogadores</small>
-                        </span>
-                        <em>Próxima</em>
-                    </a>
-
-                    <a href="#" class="schedule-row">
-                        <time datetime="2026-11-24">
-                            <strong>24</strong>
-                            <span>nov</span>
-                        </time>
-                        <span>
-                            <strong>Órbita de Andrômeda</strong>
-                            <small>Ter · 20h · 5 jogadores</small>
-                        </span>
-                        <em>Confirmada</em>
-                    </a>
-
-                    <a href="#" class="schedule-row">
-                        <time datetime="2026-11-28">
-                            <strong>28</strong>
-                            <span>nov</span>
-                        </time>
-                        <span>
-                            <strong>O último sinal</strong>
-                            <small>Sáb · 18h · 3 jogadores</small>
-                        </span>
-                        <em>A confirmar</em>
-                    </a>
+                    <div id="campaign-schedule"></div>
                 </div>
 
             </section>
@@ -208,38 +175,21 @@
 
                 <div>
                     <span class="label">Anotações:</span>
-                    <h3>O vulto voltou a aparecer</h3>
-                    <span class="muted">Ecos de Eldoria · há 3 dias</span>
-                    <a href="#" class="link band-link">Abrir notas →</a>
+                    <h3>Nenhuma anotação ainda</h3>
+                    <span class="band-empty-text">Adicione sua primeira anotação de mestre na Biblioteca.</span>
+                    <a href="../biblioteca/index.html" class="link band-link">Adicionar anotação →</a>
                 </div>
 
                 <div>
                     <span class="label">Seus amigos</span>
-                    <div class="friends-list">
-                        <a href="#" class="friend">
-                            <span class="friend-avatar avatar-peach">LM</span>
-                            <span><strong>Laura Martins</strong><small>Online agora</small></span>
-                            <span class="friend-status online" aria-label="Online"></span>
-                        </a>
-                        <a href="#" class="friend">
-                            <span class="friend-avatar avatar-teal">RC</span>
-                            <span><strong>Rafael Costa</strong><small class="friend-playing">Jogando Órbita de Andrômeda</small></span>
-                            <span class="friend-status playing" aria-label="Em uma sessão"></span>
-                        </a>
-                        <a href="#" class="friend">
-                            <span class="friend-avatar avatar-lilac">MS</span>
-                            <span><strong>Marina Souza</strong><small>Visto há 20 min</small></span>
-                            <span class="friend-status offline" aria-label="Offline"></span>
-                        </a>
-                    </div>
+                    <div class="friends-list" id="home-friends"></div>
                 </div>
 
                 <div>
-                    <span class="label">Resumo da ultima sessão:</span>
-                    <h3>Os aventureiros descobriram um antigo elo sagrado.</h3>
-                    <span class="muted">Ecos de Eldoria · campanha ativa</span>
-                    <span class="table-status"><i></i> Mesa organizada</span>
-                </div>  
+                    <span class="label">Resumo da última sessão:</span>
+                    <h3>Nenhum resumo ainda</h3>
+                    <span class="band-empty-text">Depois da primeira sessão, adicione o resumo para ele aparecer aqui.</span>
+                </div>
 
             </section>
 
@@ -247,7 +197,12 @@
 
     </div>
 
+    <script src="../campanhas/data.js"></script>
     <script src="script.js"></script>
+    <script src="../sync.js"></script>
+    <script src="../amigos/data.js"></script>
+    <script src="../amigos/view.js"></script>
+    <script src="amigos.js"></script>
 
 </body>
 </html>

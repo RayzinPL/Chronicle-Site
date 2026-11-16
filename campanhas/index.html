@@ -29,7 +29,7 @@
                 <a href="../campanhas/index.html" class="menu-item ativo" aria-current="page">
                     <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 6 6-2 4 2 6-2v14l-6 2-4-2-6 2zM10 4v14M14 6v14" /></svg></span>
                     <span>Campanhas</span>
-                    <span class="menu-count">3</span>
+                    <span class="menu-count">0</span>
                 </a>
                 <a href="../personagens/index.html" class="menu-item">
                     <span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" /><path d="M5 20c.7-3.3 3.1-5 7-5s6.3 1.7 7 5" /></svg></span>
@@ -124,43 +124,174 @@
 
         </header>
         <main>
-<section class="page-head"><div><h1>Suas campanhas</h1><p>Mesas que você mestra e mesas em que joga.</p></div><a href="#" class="btn btn-primary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> Nova campanha</a></section><div class="tabs" role="group" aria-label="Filtrar"><button class="tab" type="button" data-filter="todos" aria-pressed="true">Todas</button><button class="tab" type="button" data-filter="mestre" aria-pressed="false">Como mestre</button><button class="tab" type="button" data-filter="jogador" aria-pressed="false">Como jogador</button><button class="tab" type="button" data-filter="finalizada" aria-pressed="false">Finalizadas</button></div>
-            <section class="grid">
-            <article class="camp panel" data-cat="mestre">
-                <img src="../images/campanha-eldoria.svg" alt="">
-                <div class="camp-body">
-                    <div class="camp-top"><span class="role">Mestre</span><span class="status ativa">Ativa</span></div>
-                    <h2>Ecos de Eldoria</h2>
-                    <p>Daggerheart · 4 jogadores</p>
-                    <p class="muted">Próxima sessão: sáb, 21 nov · 19h30</p>
-                    <a href="#" class="btn btn-primary">Abrir campanha</a>
-                </div>
-            </article>
-            <article class="camp panel" data-cat="jogador">
-                <img src="../images/campanha-andromeda.svg" alt="">
-                <div class="camp-body">
-                    <div class="camp-top"><span class="role">Jogador</span><span class="status ativa">Ativa</span></div>
-                    <h2>Órbita de Andrômeda</h2>
-                    <p>Starfinder · 5 jogadores</p>
-                    <p class="muted">Próxima sessão: ter, 24 nov · 20h</p>
-                    <a href="#" class="btn btn-primary">Abrir campanha</a>
-                </div>
-            </article>
-            <article class="camp panel" data-cat="mestre">
-                <img src="../images/campanha-sinal.svg" alt="">
-                <div class="camp-body">
-                    <div class="camp-top"><span class="role">Mestre</span><span class="status pausada">Pausada</span></div>
-                    <h2>O último sinal</h2>
-                    <p>Ordem Paranormal · 3 jogadores</p>
-                    <p class="muted">Próxima sessão: sáb, 28 nov · 18h (a confirmar)</p>
-                    <a href="#" class="btn btn-primary">Abrir campanha</a>
-                </div>
-            </article>
-            </section>
-            <p class="empty" hidden>Nada por aqui com esse filtro.</p>
+<section class="page-head"><div><h1>Suas campanhas</h1><p>Mesas que você mestra e mesas em que joga.</p></div><button type="button" class="btn btn-primary" id="new-campaign-btn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> Nova campanha</button></section><div class="tabs" role="group" aria-label="Filtrar"><button class="tab" type="button" data-filter="todos" aria-pressed="true">Todas</button><button class="tab" type="button" data-filter="mestre" aria-pressed="false">Como mestre</button><button class="tab" type="button" data-filter="jogador" aria-pressed="false">Como jogador</button><button class="tab" type="button" data-filter="finalizada" aria-pressed="false">Finalizadas</button></div>
+            <section class="grid" id="campaign-grid"></section>
+            <p class="empty" role="status" hidden>Nada por aqui com esse filtro.</p>
         </main>
     </div>
+    <!-- Template do card: mesma estrutura/classes dos cards originais -->
+    <template id="campaign-card-template">
+        <article class="camp panel">
+            <img src="" alt="" hidden>
+            <div class="camp-body">
+                <div class="camp-top"><span class="role"></span><span class="status"></span></div>
+                <h2></h2>
+                <p class="camp-meta"></p>
+                <p class="muted camp-session"></p>
+                <button type="button" class="btn btn-primary" data-action="open">Abrir campanha</button>
+            </div>
+        </article>
+    </template>
+
+    <!-- Modal: criar / editar -->
+    <dialog class="modal" id="campaign-modal" aria-labelledby="campaign-modal-title">
+        <form class="modal-box" id="campaign-form" novalidate>
+            <header class="modal-head">
+                <div>
+                    <h2 id="campaign-modal-title">Nova campanha</h2>
+                    <p class="modal-sub" id="campaign-modal-sub">Dê um nome à sua mesa e escolha o sistema.</p>
+                </div>
+                <button type="button" class="modal-close" data-modal-close aria-label="Fechar">&times;</button>
+            </header>
+
+            <div class="modal-body">
+                <p class="form-alert" id="form-alert" role="alert" hidden></p>
+
+                <div class="media-fields">
+                    <div class="field media-field">
+                        <span class="field-label">Imagem da tela inicial</span>
+                        <button type="button" class="media-drop media-banner" data-media="banner" aria-label="Escolher imagem da tela inicial">
+                            <img alt="" hidden><span class="media-empty">+ Adicionar imagem</span>
+                        </button>
+                        <small class="media-tip">Ideal: 1920×768 px (5:2). Aparece no destaque do Início.</small>
+                        <button type="button" class="link media-remove" data-media-remove="banner" hidden>Remover</button>
+                    </div>
+                    <div class="field media-field">
+                        <span class="field-label">Imagem do card</span>
+                        <button type="button" class="media-drop media-card" data-media="cover" aria-label="Escolher imagem do card">
+                            <img alt="" hidden><span class="media-empty">+ Adicionar imagem</span>
+                        </button>
+                        <small class="media-tip">Ideal: 960×540 px (16:9). Aparece na aba Campanhas.</small>
+                        <button type="button" class="link media-remove" data-media-remove="cover" hidden>Remover</button>
+                    </div>
+                    <input type="file" id="media-input" accept="image/png,image/jpeg,image/webp" hidden>
+                </div>
+
+                <div class="field">
+                    <label for="f-name">Nome da campanha <span class="req" aria-hidden="true">*</span></label>
+                    <input id="f-name" name="name" type="text" autofocus maxlength="80" autocomplete="off" placeholder="Nome da campanha" aria-describedby="e-name" required>
+                    <small class="field-error" id="e-name" hidden></small>
+                </div>
+
+                <div class="field">
+                    <label for="f-system">Sistema de RPG <span class="req" aria-hidden="true">*</span></label>
+                    <input id="f-system" name="system" type="text" maxlength="60" autocomplete="off" placeholder="Sistema de RPG" aria-describedby="e-system" required>
+                    <small class="field-error" id="e-system" hidden></small>
+                </div>
+
+                <div class="field">
+                    <label for="f-status">Status</label>
+                    <select id="f-status" name="status">
+                        <option value="ativa">Ativa</option>
+                        <option value="pausada">Pausada</option>
+                        <option value="encerrada">Encerrada</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="f-description">Descrição</label>
+                    <textarea id="f-description" name="description" rows="4" maxlength="500" placeholder="Conte um pouco sobre a ambientação, o tom e o grupo." aria-describedby="e-description"></textarea>
+                    <div class="field-foot">
+                        <small class="field-error" id="e-description" hidden></small>
+                        <small class="counter" id="description-counter">0/500</small>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="modal-actions">
+                <button type="button" class="btn btn-outline" data-modal-close>Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="form-submit">Criar campanha</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <!-- Modal: detalhes -->
+    <dialog class="modal" id="details-modal" aria-labelledby="details-title">
+        <div class="modal-box">
+            <img class="details-cover" id="details-cover" src="" alt="" hidden>
+            <header class="modal-head">
+                <div>
+                    <div class="camp-top details-top"><span class="role" id="details-role"></span><span class="status" id="details-status"></span></div>
+                    <h2 id="details-title"></h2>
+                    <p class="modal-sub" id="details-system"></p>
+                </div>
+                <button type="button" class="modal-close" data-modal-close aria-label="Fechar">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="tabs details-tabs" role="group" aria-label="Seções da campanha">
+                    <button class="tab" type="button" data-details-tab="geral" aria-pressed="true">Visão geral</button>
+                    <button class="tab" type="button" data-details-tab="cronograma" aria-pressed="false">Cronograma</button>
+                </div>
+                <div id="details-panel-geral" class="details-panel">
+                <dl class="details-list">
+                    <div><dt>Jogadores</dt><dd id="details-players"></dd></div>
+                    <div><dt>Próxima sessão</dt><dd id="details-session"></dd></div>
+                    <div><dt>Criada em</dt><dd id="details-created"></dd></div>
+                    <div><dt>Última edição</dt><dd id="details-updated"></dd></div>
+                </dl>
+                <h3 class="details-heading">Descrição</h3>
+                <p class="details-description" id="details-description"></p>
+                </div>
+                <div id="details-panel-cronograma" class="details-panel" hidden>
+                    <ul class="session-list" id="details-sessions"></ul>
+                    <p class="muted" id="details-sessions-empty">Nenhuma sessão cadastrada ainda.</p>
+                    <form class="session-form" id="session-form" novalidate>
+                        <h3 class="details-heading">Nova sessão</h3>
+                        <div class="session-fields">
+                            <label class="field">Data<input type="date" id="s-date" required></label>
+                            <label class="field">Horário<input type="time" id="s-time" required></label>
+                        </div>
+                        <label class="field">Título (opcional)<input type="text" id="s-title" maxlength="80" autocomplete="off" placeholder="Ex.: Sessão 5 · A ponte quebrada"></label>
+                        <small class="field-error" id="e-session" hidden></small>
+                        <div class="session-foot">
+                            <small class="muted">Os jogadores são avisados 1 dia antes e no dia da sessão.</small>
+                            <button type="submit" class="btn btn-primary">Adicionar sessão</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <footer class="modal-actions">
+                <button type="button" class="btn btn-danger" data-action="delete">Excluir</button>
+                <button type="button" class="btn btn-primary" data-action="edit">Editar</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <!-- Modal: confirmar exclusão -->
+    <dialog class="modal modal-small" id="confirm-modal" role="alertdialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+        <div class="modal-box">
+            <header class="modal-head">
+                <h2 id="confirm-title">Excluir campanha?</h2>
+                <button type="button" class="modal-close" data-modal-close aria-label="Fechar">&times;</button>
+            </header>
+            <div class="modal-body">
+                <p id="confirm-text"></p>
+                <p class="form-alert" id="confirm-alert" role="alert" hidden></p>
+            </div>
+            <footer class="modal-actions">
+                <button type="button" class="btn btn-outline" data-modal-close autofocus>Cancelar</button>
+                <button type="button" class="btn btn-danger btn-danger-solid" id="confirm-delete">Excluir</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <!-- Avisos rápidos (toasts) -->
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+
     <script src="../inicio/script.js"></script>
+    <script src="data.js"></script>
+    <script src="imageeditor.js"></script>
+    <script src="../sync.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
